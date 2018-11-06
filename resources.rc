@@ -1,0 +1,3 @@
+101 ICON "RubiksCube.ico"
+
+// compiled by windres    windres resources.rc -O coff -o *.res
