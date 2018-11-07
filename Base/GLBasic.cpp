@@ -20,6 +20,11 @@ GLFWwindow* RCGLInitialize(GLFWwindow** ppWnd, const int& w, const int& h, const
 	glEnable(GL_CULL_FACE);
 }
 
+void RCGLSetWindowIcon(GLFWwindow** ppWnd, int count, GLFWimage* images)
+{
+	glfwSetWindowIcon(*ppWnd, count, images);
+}
+
 void RCGLSetMouseButtonCallback(GLFWwindow** ppWnd, GLFWmousebuttonfun cbfun)
 {
 	glfwSetMouseButtonCallback(*ppWnd, cbfun);

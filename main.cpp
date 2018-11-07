@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <vector>
+#include <ximage.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GameLogic/Cube.h>
@@ -11,6 +12,8 @@ using namespace glm;
 int WND_WIDTH = 800;
 int WND_HEIGHT = 600;
 #define WND_TITLE "Rubik's Cube"
+
+unsigned char* pIconData = nullptr;
 
 Cube* cube;
 
@@ -235,11 +238,29 @@ void mainLoop(void* pParam)
 
 int main()
 {
+	// load icon (256-color)
+	CxImage icon("RubiksCube.ico", CXIMAGE_FORMAT_UNKNOWN);
+	pIconData = new unsigned char[icon.GetWidth() * icon.GetHeight() * 4 + 1];
+	RGBQUAD colorTrans = icon.GetTransColor();
+	for (DWORD i = 0; i < icon.GetWidth(); i++)
+		for (DWORD j = 0; j < icon.GetHeight(); j++)
+		{
+			RGBQUAD cr = icon.GetPixelColor(i, j);
+			pIconData[((icon.GetHeight() - j - 1) * icon.GetWidth() + i) * 4 + 0] = cr.rgbRed;
+			pIconData[((icon.GetHeight() - j - 1) * icon.GetWidth() + i) * 4 + 1] = cr.rgbGreen;
+			pIconData[((icon.GetHeight() - j - 1) * icon.GetWidth() + i) * 4 + 2] = cr.rgbBlue;
+			if (colorTrans.rgbRed == cr.rgbRed && colorTrans.rgbGreen == cr.rgbGreen && colorTrans.rgbBlue == cr.rgbBlue)
+				pIconData[((icon.GetHeight() - j - 1) * icon.GetWidth() + i) * 4 + 3] = 0;
+			else
+				pIconData[((icon.GetHeight() - j - 1) * icon.GetWidth() + i) * 4 + 3] = 0xFF;
+		}
+	GLFWimage img = { (int)icon.GetWidth(), (int)icon.GetHeight(), pIconData };
 	// cube initialize
 	cube = new Cube;
 	// OpenGL Initialize
 	GLFWwindow* pWnd;
 	RCGLInitialize(&pWnd, WND_WIDTH, WND_HEIGHT, WND_TITLE);
+	RCGLSetWindowIcon(&pWnd, 1, &img);
 	RCGLSetMouseButtonCallback(&pWnd, mouseCallback);
 	RCGLSetMainLoopCallback(mainLoop);
 	// load shader
@@ -303,5 +324,6 @@ int main()
 	delete btnTips; btnTips = nullptr;
 	delete btnDisrupt; btnDisrupt = nullptr;
 	delete cube; cube = nullptr;
+	delete[] pIconData; pIconData = nullptr;
 	return 0;
 }

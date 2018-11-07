@@ -21,6 +21,7 @@ file(
 include_directories(
         ${PROJECT_SOURCE_DIR}
 
+        C:/Users/dl/Documents/CxImage/build/include
         C:/Users/dl/Documents/glew-2.1.0/include
         C:/Users/dl/Documents/glfw-3.2.1/include
         C:/Users/dl/Documents/glm
@@ -28,6 +29,7 @@ include_directories(
 )
 
 link_directories(
+        C:/Users/dl/Documents/CxImage/build/lib
         C:/Users/dl/Documents/glew-2.1.0/lib
         C:/Users/dl/Documents/glfw-3.2.1/build-mingw/src
         C:/Users/dl/Documents/glm/build-MinGW/glm
@@ -35,6 +37,7 @@ link_directories(
 )
 
 link_libraries(
+        CxImage
         glew32
         glfw3
         opengl32
@@ -50,3 +53,4 @@ install(FILES working/button.fs DESTINATION ${PROJECT_BINARY_DIR}/bin)
 install(FILES working/cube.vs DESTINATION ${PROJECT_BINARY_DIR}/bin)
 install(FILES working/cube.fs DESTINATION ${PROJECT_BINARY_DIR}/bin)
 install(FILES working/mingliu.ttc DESTINATION ${PROJECT_BINARY_DIR}/bin)
+install(FILES RubiksCube.ico DESTINATION ${PROJECT_BINARY_DIR}/bin)
