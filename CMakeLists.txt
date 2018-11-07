@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.12)
 project(Rubik_sCube)
 
+set(VERSION_MAJOR 1)
+set(VERSION_MINOR 0)
+set(VERSION_PATCH 1)
+
+set(PROJECT_POSTFIX "-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+set(INSTALL_NAME "Rubik's Cube")
+set(INSTALL_DIR "${PROJECT_SOURCE_DIR}/${INSTALL_NAME}${PROJECT_POSTFIX}")
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGLEW_STATIC")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
@@ -54,3 +62,13 @@ install(FILES working/cube.vs DESTINATION ${PROJECT_BINARY_DIR}/bin)
 install(FILES working/cube.fs DESTINATION ${PROJECT_BINARY_DIR}/bin)
 install(FILES working/mingliu.ttc DESTINATION ${PROJECT_BINARY_DIR}/bin)
 install(FILES RubiksCube.ico DESTINATION ${PROJECT_BINARY_DIR}/bin)
+
+if (${CMAKE_BUILD_TYPE} MATCHES "Release")
+    install(TARGETS Rubik_sCube DESTINATION "${INSTALL_DIR}/bin")
+    install(FILES working/button.vs DESTINATION ${INSTALL_DIR}/bin)
+    install(FILES working/button.fs DESTINATION ${INSTALL_DIR}/bin)
+    install(FILES working/cube.vs DESTINATION ${INSTALL_DIR}/bin)
+    install(FILES working/cube.fs DESTINATION ${INSTALL_DIR}/bin)
+    install(FILES working/mingliu.ttc DESTINATION ${INSTALL_DIR}/bin)
+    install(FILES RubiksCube.ico DESTINATION ${INSTALL_DIR}/bin)
+endif ()
