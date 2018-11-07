@@ -21,19 +21,19 @@ file(
 include_directories(
         ${PROJECT_SOURCE_DIR}
 
-        C:/Users/dl/Documents/CxImage/build/include
-        C:/Users/dl/Documents/glew-2.1.0/include
-        C:/Users/dl/Documents/glfw-3.2.1/include
-        C:/Users/dl/Documents/glm
-        C:/Users/dl/Documents/freetype-2.9.1/include
+        ${CXIMAGE_INCLUDE_DIR}
+        ${GLEW_INCLUDE_DIR}
+        ${GLFW_INCLUDE_DIR}
+        ${GLM_INCLUDE_DIR}
+        ${FREETYPE_INCLUDE_DIR}
 )
 
 link_directories(
-        C:/Users/dl/Documents/CxImage/build/lib
-        C:/Users/dl/Documents/glew-2.1.0/lib
-        C:/Users/dl/Documents/glfw-3.2.1/build-mingw/src
-        C:/Users/dl/Documents/glm/build-MinGW/glm
-        C:/Users/dl/Documents/freetype-2.9.1/build-MinGW
+        ${CXIMAGE_LINK_DIR}
+        ${GLEW_LINK_DIR}
+        ${GLFW_LINK_DIR}
+        ${GLM_LINK_DIR}
+        ${FREETYPE_LINK_DIR}
 )
 
 link_libraries(

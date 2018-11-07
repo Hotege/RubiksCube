@@ -238,6 +238,8 @@ void mainLoop(void* pParam)
 
 int main()
 {
+	// TODO: register for Microsoft.
+	// TODO: merge all *.ico, *.vs, *.fs *.ttc file.
 	// load icon (256-color)
 	CxImage icon("RubiksCube.ico", CXIMAGE_FORMAT_UNKNOWN);
 	pIconData = new unsigned char[icon.GetWidth() * icon.GetHeight() * 4 + 1];
