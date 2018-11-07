@@ -172,17 +172,17 @@ void mouseCallback(GLFWwindow* pWnd, int button, int action, int mods)
 
 struct MainLoopParam
 {
-	Cube* pCube;
-	RCButton* pBtnExit;
-	RCButton* pBtnRed;
-	RCButton* pBtnGreen;
-	RCButton* pBtnYellow;
-	RCButton* pBtnOrange;
-	RCButton* pBtnBlue;
-	RCButton* pBtnWhite;
-
-	RCButton* pBtnTips;
-	RCButton* pBtnDisrupt;
+//	Cube* pCube;
+//	RCButton* pBtnExit;
+//	RCButton* pBtnRed;
+//	RCButton* pBtnGreen;
+//	RCButton* pBtnYellow;
+//	RCButton* pBtnOrange;
+//	RCButton* pBtnBlue;
+//	RCButton* pBtnWhite;
+//
+//	RCButton* pBtnTips;
+//	RCButton* pBtnDisrupt;
 
 	GLFWwindow* pWnd;
 };
@@ -210,37 +210,37 @@ void mainLoop(void* pParam)
 	glm::mat4 mvp = projection * view * model; // Remember, matrix multiplication is the other way around
 
 	glEnable(GL_DEPTH_TEST);
-	auto vCubeTri = pMLP->pCube->GetTriangles();
+	auto vCubeTri = cube->GetTriangles();
 	RCGLSetVertexParam("cube", "positionInput", 4, GL_FLOAT, GL_FALSE, 0, &vCubeTri[0]);
-	auto vCubeColor = pMLP->pCube->GetColors();
+	auto vCubeColor = cube->GetColors();
 	RCGLSetVertexParam("cube", "colorInput", 4, GL_FLOAT, GL_FALSE, 0, &vCubeColor[0]);
-	auto vCubeCenter = pMLP->pCube->GetCenters();
+	auto vCubeCenter = cube->GetCenters();
 	RCGLSetVertexParam("cube", "centerInput", 4, GL_FLOAT, GL_FALSE, 0, &vCubeCenter[0]);
 	RCGLSetUniformMatrix4fv("cube", "mvp", 1, GL_FALSE, &mvp[0][0]);
-	auto vCubeIndices = pMLP->pCube->GetIndices();
+	auto vCubeIndices = cube->GetIndices();
 	RCGLDrawElements(GL_TRIANGLES, vCubeIndices.size(), GL_UNSIGNED_INT, (void*)&vCubeIndices[0]);
 
 	glDisable(GL_DEPTH_TEST);
 	GLfloat whiteText[] = { 1, 1, 1, 1 };
 	GLfloat blackText[] = { 0, 0, 0, 1 };
 	GLfloat colorBackBtnExit[] = { 0.618, 0, 0.382, 1 };
-	renderButton(pMLP->pBtnExit, colorBackBtnExit, whiteText);
+	renderButton(btnExit, colorBackBtnExit, whiteText);
 	GLfloat colorRed[] = { 0.835294f, 0, 0.062745f, 1 };
-	renderButton(pMLP->pBtnRed, colorRed, whiteText);
+	renderButton(btnRed, colorRed, whiteText);
 	GLfloat colorGreen[] = { 0, 0.623529f, 0.074510f, 1 };
-	renderButton(pMLP->pBtnGreen, colorGreen, whiteText);
+	renderButton(btnGreen, colorGreen, whiteText);
 	GLfloat colorYellow[] = { 1, 1, 0, 1 };
-	renderButton(pMLP->pBtnYellow, colorYellow, blackText);
+	renderButton(btnYellow, colorYellow, blackText);
 	GLfloat colorOrange[] = { 0.996078f, 0.541176f, 0.039216f, 1 };
-	renderButton(pMLP->pBtnOrange, colorOrange, whiteText);
+	renderButton(btnOrange, colorOrange, whiteText);
 	GLfloat colorBlue[] = { 0, 0.274510f, 0.623529f, 1 };
-	renderButton(pMLP->pBtnBlue, colorBlue, whiteText);
+	renderButton(btnBlue, colorBlue, whiteText);
 	GLfloat colorWhite[] = { 1, 1, 1, 1 };
-	renderButton(pMLP->pBtnWhite, colorWhite, blackText);
+	renderButton(btnWhite, colorWhite, blackText);
 
-	renderButton(pMLP->pBtnTips, blackText, whiteText);
+	renderButton(btnTips, blackText, whiteText);
 	GLfloat colorDisrupt[] = { 0, 0.618f, 0, 1 };
-	renderButton(pMLP->pBtnDisrupt, colorDisrupt, whiteText);
+	renderButton(btnDisrupt, colorDisrupt, whiteText);
 
 	keyboardEvent(pMLP->pWnd);
 }
@@ -300,16 +300,6 @@ int main()
 	std::vector<unsigned int> indices = cube->GetIndices();
 	// main loop
 	MainLoopParam param = {
-			cube,
-			btnExit,
-			btnRed,
-			btnGreen,
-			btnYellow,
-			btnOrange,
-			btnBlue,
-			btnWhite,
-			btnTips,
-			btnDisrupt,
 			pWnd,
 	};
 	RCGLMainLoop(&pWnd, &param);
