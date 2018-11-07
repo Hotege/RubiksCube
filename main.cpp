@@ -172,18 +172,6 @@ void mouseCallback(GLFWwindow* pWnd, int button, int action, int mods)
 
 struct MainLoopParam
 {
-//	Cube* pCube;
-//	RCButton* pBtnExit;
-//	RCButton* pBtnRed;
-//	RCButton* pBtnGreen;
-//	RCButton* pBtnYellow;
-//	RCButton* pBtnOrange;
-//	RCButton* pBtnBlue;
-//	RCButton* pBtnWhite;
-//
-//	RCButton* pBtnTips;
-//	RCButton* pBtnDisrupt;
-
 	GLFWwindow* pWnd;
 };
 
