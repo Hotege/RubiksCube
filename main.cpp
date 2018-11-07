@@ -6,6 +6,8 @@
 #include <GameLogic/Cube.h>
 #include <Base/GLBasic.h>
 #include <Base/RCButton.h>
+#include <DLFileKit.h>
+#include <DLPackager.h>
 
 using namespace glm;
 
@@ -32,7 +34,7 @@ RCButton* btnTips = nullptr;
 RCButton* btnDisrupt = nullptr;
 
 #define OnKeyEventPress(wnd, key) \
-state = glfwGetKey(wnd, key); \
+state = glfwGetKey((wnd), (key)); \
 if (state == GLFW_PRESS)
 
 void keyboardEvent(GLFWwindow* pWnd)
@@ -76,16 +78,16 @@ void keyboardEvent(GLFWwindow* pWnd)
 }
 
 #define OnButtonDown(btn, x, y) \
-if (x >= btn->GetXPos() && y <= btn->GetYPos()) \
-	if (x <= btn->GetXPos() + btn->GetWidth() * 2.0f / WND_WIDTH && y >= btn->GetYPos() - btn->GetHeight() * 2.0f / WND_HEIGHT)
+if ((x) >= (btn)->GetXPos() && (y) <= (btn)->GetYPos()) \
+	if ((x) <= (btn)->GetXPos() + (btn)->GetWidth() * 2.0f / WND_WIDTH && (y) >= (btn)->GetYPos() - (btn)->GetHeight() * 2.0f / WND_HEIGHT)
 
 #define OnButtonLeftPart(btn, x, y) \
-if (x >= btn->GetXPos() && y <= btn->GetYPos()) \
-	if (x <= btn->GetXPos() + btn->GetWidth() / float(WND_WIDTH) && y >= btn->GetYPos() - btn->GetHeight() * 2.0f / WND_HEIGHT)
+if ((x) >= (btn)->GetXPos() && (y) <= (btn)->GetYPos()) \
+	if ((x) <= (btn)->GetXPos() + (btn)->GetWidth() / float(WND_WIDTH) && (y) >= (btn)->GetYPos() - (btn)->GetHeight() * 2.0f / WND_HEIGHT)
 
 #define OnButtonRightPart(btn, x, y) \
-if (x >= btn->GetXPos() + btn->GetWidth() / float(WND_WIDTH) && y <= btn->GetYPos()) \
-	if (x <= btn->GetXPos() + btn->GetWidth() * 2.0f / WND_WIDTH && y >= btn->GetYPos() - btn->GetHeight() * 2.0f / WND_HEIGHT)
+if ((x) >= (btn)->GetXPos() + (btn)->GetWidth() / float(WND_WIDTH) && (y) <= (btn)->GetYPos()) \
+	if ((x) <= (btn)->GetXPos() + (btn)->GetWidth() * 2.0f / WND_WIDTH && (y) >= (btn)->GetYPos() - (btn)->GetHeight() * 2.0f / WND_HEIGHT)
 
 void mouseCallback(GLFWwindow* pWnd, int button, int action, int mods)
 {
@@ -239,9 +241,13 @@ void mainLoop(void* pParam)
 int main()
 {
 	// TODO: register for Microsoft.
-	// TODO: merge all *.ico, *.vs, *.fs *.ttc file.
+	// load resources
+	DLFileKit fkRes;
+	fkRes.ReadFile("RubiksCube.dlp");
+	std::vector<PKG_FILE> vPkgFile = DLPackager::Unpack(fkRes.GetData(), (const unsigned int)fkRes.GetSize());
 	// load icon (256-color)
-	CxImage icon("RubiksCube.ico", CXIMAGE_FORMAT_UNKNOWN);
+	CxImage icon;
+	icon.Decode(vPkgFile[5].pBufferInput, vPkgFile[5].nSourceSize, CXIMAGE_FORMAT_UNKNOWN);
 	pIconData = new unsigned char[icon.GetWidth() * icon.GetHeight() * 4 + 1];
 	RGBQUAD colorTrans = icon.GetTransColor();
 	for (DWORD i = 0; i < icon.GetWidth(); i++)
@@ -266,35 +272,39 @@ int main()
 	RCGLSetMouseButtonCallback(&pWnd, mouseCallback);
 	RCGLSetMainLoopCallback(mainLoop);
 	// load shader
-	RCGLLoadShader("cube", "cube.vs", "cube.fs");
-	RCGLLoadShader("button", "button.vs", "button.fs");
+	std::string strCubeVS = (char*)vPkgFile[2].pBufferInput;
+	std::string strCubeFS = (char*)vPkgFile[3].pBufferInput;
+	RCGLLoadShader("cube", strCubeVS, strCubeFS);
+	std::string strButtonVS = (char*)vPkgFile[0].pBufferInput;
+	std::string strButtonFS = (char*)vPkgFile[1].pBufferInput;
+	RCGLLoadShader("button", strButtonVS, strButtonFS);
 	// buttons
 	float fYPosOffset = 1;
-	btnRed = new RCButton("mingliu.ttc", 32, 32, -1, fYPosOffset, L"[順時針][逆時針]");
+	btnRed = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 32, 32, -1, fYPosOffset, L"[順時針][逆時針]");
 	fYPosOffset -= btnRed->GetHeight() * 2.0f / WND_HEIGHT;
-	btnGreen = new RCButton("mingliu.ttc", 32, 32, -1, fYPosOffset, L"[順時針][逆時針]");
+	btnGreen = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 32, 32, -1, fYPosOffset, L"[順時針][逆時針]");
 	fYPosOffset -= btnGreen->GetHeight() * 2.0f / WND_HEIGHT;
-	btnYellow = new RCButton("mingliu.ttc", 32, 32, -1, fYPosOffset, L"[順時針][逆時針]");
+	btnYellow = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 32, 32, -1, fYPosOffset, L"[順時針][逆時針]");
 
 	fYPosOffset = 1;
-	btnOrange = new RCButton("mingliu.ttc", 32, 32, 1, fYPosOffset, L"[順時針][逆時針]");
+	btnOrange = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 32, 32, 1, fYPosOffset, L"[順時針][逆時針]");
 	btnOrange->SetXPos(1 - btnOrange->GetWidth() * 2.0f / WND_WIDTH);
 	fYPosOffset -= btnOrange->GetHeight() * 2.0f / WND_HEIGHT;
-	btnBlue = new RCButton("mingliu.ttc", 32, 32, 1, fYPosOffset, L"[順時針][逆時針]");
+	btnBlue = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 32, 32, 1, fYPosOffset, L"[順時針][逆時針]");
 	btnBlue->SetXPos(1 - btnBlue->GetWidth() * 2.0f / WND_WIDTH);
 	fYPosOffset -= btnBlue->GetHeight() * 2.0f / WND_HEIGHT;
-	btnWhite = new RCButton("mingliu.ttc", 32, 32, 1, fYPosOffset, L"[順時針][逆時針]");
+	btnWhite = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 32, 32, 1, fYPosOffset, L"[順時針][逆時針]");
 	btnWhite->SetXPos(1 - btnWhite->GetWidth() * 2.0f / WND_WIDTH);
 
-	btnExit = new RCButton("mingliu.ttc", 32, 32, 1, -1, L"退出");
+	btnExit = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 32, 32, 1, -1, L"退出");
 	btnExit->SetXPos(1 - btnExit->GetWidth() * 2.0f / WND_WIDTH);
 	btnExit->SetYPos(-1 + btnExit->GetHeight() * 2.0f / WND_HEIGHT);
 
-	btnDisrupt = new RCButton("mingliu.ttc", 32, 32, 1, -1, L"打亂");
+	btnDisrupt = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 32, 32, 1, -1, L"打亂");
 	btnDisrupt->SetXPos(1 - btnDisrupt->GetWidth() * 2.0f / WND_WIDTH);
 	btnDisrupt->SetYPos(-1 + (btnExit->GetHeight() + btnDisrupt->GetHeight()) * 2.0f / WND_HEIGHT);
 
-	btnTips = new RCButton("mingliu.ttc", 24, 24, -1, -1, L"按下W/S、A/D、Q/E調整角度，點擊對應的按鈕進行相關操作。");
+	btnTips = new RCButton(vPkgFile[4].pBufferInput, vPkgFile[4].nSourceSize, 24, 24, -1, -1, L"按下W/S、A/D、Q/E調整角度，點擊對應的按鈕進行相關操作。");
 	btnTips->SetYPos(-1 + btnTips->GetHeight() * 2.0f / WND_HEIGHT);
 	// camera matrix initialize
 	projection = glm::perspective(glm::radians(45.0f), float(WND_WIDTH) / WND_HEIGHT, 0.000001f, 100.0f);

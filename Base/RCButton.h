@@ -13,7 +13,7 @@ class RCButton
 public:
 	// must called after glew init.
 	explicit RCButton(
-			const char* pFont, const unsigned int& wFont, const unsigned int& hFont,
+			const unsigned char* pFontBuf, const unsigned int& nFontBufLen, const unsigned int& wFont, const unsigned int& hFont,
 			const float& xPos, const float& yPos,
 			const wchar_t* pwText = L"None"
 	);

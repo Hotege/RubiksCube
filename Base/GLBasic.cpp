@@ -32,15 +32,14 @@ void RCGLSetMouseButtonCallback(GLFWwindow** ppWnd, GLFWmousebuttonfun cbfun)
 
 std::map<std::string, SHADER> m_mShader;
 
-void RCGLLoadShader(const std::string& strTag, const std::string& vertexFile, const std::string& fragmentFile)
+void RCGLLoadShader(const std::string& strTag, const std::string& vertexCode, const std::string& fragmentCode)
 {
 	SHADER shader = { 0 };
 	GLint shaderResult = GL_FALSE;
 	int shaderInfoLogLength;
 
-	FileLoader fileVertex(vertexFile.c_str());
 	shader.vertex = glCreateShader(GL_VERTEX_SHADER);
-	auto pVsCode = fileVertex.GetData();
+	auto pVsCode = vertexCode.c_str();
 	glShaderSource(shader.vertex, 1, (const GLchar*const*)&pVsCode, nullptr);
 	glCompileShader(shader.vertex);
 	glGetShaderiv(shader.vertex, GL_COMPILE_STATUS, &shaderResult);
@@ -52,9 +51,8 @@ void RCGLLoadShader(const std::string& strTag, const std::string& vertexFile, co
 		printf("%s\n", &vertexShaderErrorMessage[0]);
 	}
 
-	FileLoader fileFragment(fragmentFile.c_str());
 	shader.fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	auto pFsCode = fileFragment.GetData();
+	auto pFsCode = fragmentCode.c_str();
 	glShaderSource(shader.fragment, 1, (const GLchar*const*)&pFsCode, nullptr);
 	glCompileShader(shader.fragment);
 	glGetShaderiv(shader.fragment, GL_COMPILE_STATUS, &shaderResult);

@@ -19,7 +19,7 @@ struct SHADER
 GLFWwindow* RCGLInitialize(GLFWwindow** ppWnd, const int& w, const int& h, const char* title);
 void RCGLSetWindowIcon(GLFWwindow** ppWnd, int count, GLFWimage* images);
 void RCGLSetMouseButtonCallback(GLFWwindow** ppWnd, GLFWmousebuttonfun cbfun);
-void RCGLLoadShader(const std::string& strTag, const std::string& vertexFile, const std::string& fragmentFile);
+void RCGLLoadShader(const std::string& strTag, const std::string& vertexCode, const std::string& fragmentCode);
 void RCGLSetMainLoopCallback(void (*mainLoop)(void*));
 void RCGLMainLoop(GLFWwindow** ppWnd, void* pParam);
 void RCGLSetVertexParam(const std::string& strTag, const std::string& strParamName, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* pointer);

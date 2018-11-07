@@ -18,7 +18,7 @@ struct TYPE_RENDER
 };
 
 RCButton::RCButton(
-		const char* pFont, const unsigned int& wFont, const unsigned int& hFont,
+		const unsigned char* pFontBuf, const unsigned int& nFontBufLen, const unsigned int& wFont, const unsigned int& hFont,
 		const float& xPos, const float& yPos,
 		const wchar_t* pwText
 )
@@ -32,13 +32,10 @@ RCButton::RCButton(
 	FT_Library ftLibrary = nullptr;
 	FT_Face ftFace = nullptr;
 	FT_Init_FreeType(&ftLibrary);
-	FT_New_Face(ftLibrary, pFont, 0, &ftFace);
+	FT_New_Memory_Face(ftLibrary, pFontBuf, (FT_Long)nFontBufLen, 0, &ftFace);
 	FT_Set_Pixel_Sizes(ftFace, wFont, hFont);
 
-//	std::vector<unsigned char*> vWcharBuffer; // 8-bits
 	std::vector<TYPE_RENDER> vTypeRender;
-//	std::vector<unsigned int> vWcharWidth;
-//	std::vector<unsigned int> vWcharHeight;
 	size_t nSize = wcslen(pwText);
 	for (size_t i = 0; i < nSize; i++)
 	{
@@ -78,7 +75,6 @@ RCButton::RCButton(
 		wOffset += p.W;
 	}
 
-	static bool ff = true;
 	for (auto p : vTypeRender)
 	{
 		delete[] p.data;

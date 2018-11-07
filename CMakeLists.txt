@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 project(Rubik_sCube)
 
 set(VERSION_MAJOR 1)
-set(VERSION_MINOR 0)
-set(VERSION_PATCH 1)
+set(VERSION_MINOR 1)
+set(VERSION_PATCH 0)
 
 set(PROJECT_POSTFIX "-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 set(INSTALL_NAME "Rubik's Cube")
@@ -34,6 +34,9 @@ include_directories(
         ${GLFW_INCLUDE_DIR}
         ${GLM_INCLUDE_DIR}
         ${FREETYPE_INCLUDE_DIR}
+        ${FILEKIT_INCLUDE_DIR}
+        ${PKG_INCLUDE_DIR}
+        ${ZLIB_INCLUDE_DIR}
 )
 
 link_directories(
@@ -42,6 +45,9 @@ link_directories(
         ${GLFW_LINK_DIR}
         ${GLM_LINK_DIR}
         ${FREETYPE_LINK_DIR}
+        ${FILEKIT_LINK_DIR}
+        ${PKG_LINK_DIR}
+        ${ZLIB_LINK_DIR}
 )
 
 link_libraries(
@@ -51,24 +57,17 @@ link_libraries(
         opengl32
         glm_static
         freetype
+        DLPackager
+        DLFileKit
+        z
 )
 
 add_executable(Rubik_sCube ${srcs})
 set_target_properties(Rubik_sCube PROPERTIES OUTPUT_NAME "Rubik's Cube(Bloated)")
 
-install(FILES working/button.vs DESTINATION ${PROJECT_BINARY_DIR}/bin)
-install(FILES working/button.fs DESTINATION ${PROJECT_BINARY_DIR}/bin)
-install(FILES working/cube.vs DESTINATION ${PROJECT_BINARY_DIR}/bin)
-install(FILES working/cube.fs DESTINATION ${PROJECT_BINARY_DIR}/bin)
-install(FILES working/mingliu.ttc DESTINATION ${PROJECT_BINARY_DIR}/bin)
-install(FILES RubiksCube.ico DESTINATION ${PROJECT_BINARY_DIR}/bin)
+install(FILES working/RubiksCube.dlp DESTINATION ${PROJECT_BINARY_DIR}/bin)
 
 if (${CMAKE_BUILD_TYPE} MATCHES "Release")
     install(TARGETS Rubik_sCube DESTINATION "${INSTALL_DIR}/bin")
-    install(FILES working/button.vs DESTINATION ${INSTALL_DIR}/bin)
-    install(FILES working/button.fs DESTINATION ${INSTALL_DIR}/bin)
-    install(FILES working/cube.vs DESTINATION ${INSTALL_DIR}/bin)
-    install(FILES working/cube.fs DESTINATION ${INSTALL_DIR}/bin)
-    install(FILES working/mingliu.ttc DESTINATION ${INSTALL_DIR}/bin)
-    install(FILES RubiksCube.ico DESTINATION ${INSTALL_DIR}/bin)
+    install(FILES working/RubiksCube.dlp DESTINATION ${INSTALL_DIR}/bin)
 endif ()
