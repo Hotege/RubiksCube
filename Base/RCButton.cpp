@@ -8,6 +8,9 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <GL/glew.h>
+#if defined(LINUX)
+#include <cwchar>
+#endif
 
 struct TYPE_RENDER
 {
