@@ -240,7 +240,6 @@ void mainLoop(void* pParam)
 
 int main()
 {
-	// TODO: register for Microsoft.
 	// load resources
 	DLFileKit fkRes;
 	fkRes.ReadFile("RubiksCube.dlp");
