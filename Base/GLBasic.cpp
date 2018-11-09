@@ -4,7 +4,6 @@
 
 #include "GLBasic.h"
 #include <vector>
-#include <Base/FileLoader.h>
 
 GLFWwindow* RCGLInitialize(GLFWwindow** ppWnd, const int& w, const int& h, const char* title)
 {
