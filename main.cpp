@@ -216,7 +216,7 @@ void mainLoop(void* pParam)
 	RCGLSetUniformMatrix4fv("cube", "model", 1, GL_FALSE, &model[0][0]);
 	GLfloat pLightPos[] = { 4, 6, 4 };
 	RCGLSetUniform4fv("cube", "lightPos", 1, pLightPos);
-	RCGLSetUniform1f("cube", "ambientRatio", 0.35f);
+	RCGLSetUniform1f("cube", "ambientRatio", 0.5f);
 	RCGLSetUniform1f("cube", "specularRatio", 0.5f);
 	auto vCubeIndices = cube->GetIndices();
 	RCGLDrawElements(GL_TRIANGLES, vCubeIndices.size(), GL_UNSIGNED_INT, (void*)&vCubeIndices[0]);

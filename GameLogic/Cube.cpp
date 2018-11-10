@@ -7,11 +7,11 @@
 #include <cstdlib>
 #include <ctime>
 
-#define RED { 0.835294f, 0, 0.062745f, 1 }
-#define GREEN { 0, 0.623529f, 0.074510f, 1 }
-#define YELLOW { 1, 1, 0, 1 }
-#define ORANGE { 0.996078f, 0.541176f, 0.039216f, 1 }
-#define BLUE { 0, 0.274510f, 0.623529f, 1 }
+#define RED { 184.0f / 255, 10.0f / 255, 49.0 / 255, 1 }
+#define GREEN { 0, 156.0f / 255, 70.0 / 255, 1 }
+#define YELLOW { 1, 214.0f / 255, 0, 1 }
+#define ORANGE { 1, 87.0f / 255, 0, 1 }
+#define BLUE { 0, 68.0f / 255, 147.0f / 255, 1 }
 #define WHITE { 1, 1, 1, 1 }
 
 Cube::Cube()
