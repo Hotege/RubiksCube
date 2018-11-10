@@ -3,7 +3,7 @@ project(Rubik_sCube)
 
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR 2)
-set(VERSION_PATCH 2)
+set(VERSION_PATCH 3)
 
 set(PROJECT_POSTFIX "-${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 set(INSTALL_NAME "Rubik's Cube")
@@ -26,11 +26,18 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(FREETYPE_LIB "freetype.a")
     set(Z_LIB "z.a")
 endif()
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GLEW_LINK_DIR}/libGLEW.a ${ZLIB_LINK_DIR}/libz.a")
+    set(GLEW_LIB "")
+    set(OPENGL_LIB "")
+    set(FREETYPE_LIB "freetype.a")
+    set(Z_LIB "")
+endif ()
 
 file(
         GLOB srcs
         main.cpp
-#        Base/FileLoader.cpp
         Base/GLBasic.cpp
         Base/RCButton.cpp
         GameLogic/Cube.cpp
@@ -81,6 +88,11 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
             Xinerama
             Xcursor
             Xxf86vm
+    )
+endif ()
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    link_libraries(
+            bz2
     )
 endif ()
 
