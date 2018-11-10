@@ -30,6 +30,7 @@ public:
 	std::vector<v4> GetTriangles();
 	std::vector<v4> GetColors();
 	std::vector<v4> GetCenters();
+	std::vector<v4> GetNormals();
 	std::vector<unsigned int> GetIndices();
 
 	ROTATE_FUNC(Red);

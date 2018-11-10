@@ -113,13 +113,20 @@ void RCGLSetUniformMatrix4fv(const std::string& strTag, const std::string& strPa
 	glUniformMatrix4fv(glGetUniformLocation(program, strParamName.c_str()), count, transpose, value);
 }
 
-void RCGLSetUniform1i(const std::string& strTag, const std::string& strParamName, GLuint texTag, GLuint tex, GLuint layer)
+void RCGLSetUniformTex(const std::string& strTag, const std::string& strParamName, GLuint texTag, GLuint tex, GLuint layer)
 {
 	GLuint program = m_mShader[strTag].program;
 	glUseProgram(program);
 	glActiveTexture(texTag);
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glUniform1i(glGetUniformLocation(program, strParamName.c_str()), layer);
+}
+
+void RCGLSetUniform1f(const std::string& strTag, const std::string& strParamName, GLfloat value)
+{
+	GLuint program = m_mShader[strTag].program;
+	glUseProgram(program);
+	glUniform1f(glGetUniformLocation(program, strParamName.c_str()), value);
 }
 
 void RCGLSetUniform4fv(const std::string& strTag, const std::string& strParamName, GLsizei count, const GLfloat* value)

@@ -186,7 +186,7 @@ void renderButton(RCButton* pBtn, GLfloat* colorBack, GLfloat* colorText)
 	RCGLSetVertexParam("button", "positionInput", 2, GL_FLOAT, GL_FALSE, 0, &vTri[0]);
 	auto vTexCoord = pBtn->GetTexcoords();
 	RCGLSetVertexParam("button", "texcoordInput", 2, GL_FLOAT, GL_FALSE, 0, &vTexCoord[0]);
-	RCGLSetUniform1i("button", "texInput", GL_TEXTURE0, pBtn->GetTexture(), 0);
+	RCGLSetUniformTex("button", "texInput", GL_TEXTURE0, pBtn->GetTexture(), 0);
 	RCGLSetUniform4fv("button", "colorBack", 1, colorBack);
 	RCGLSetUniform4fv("button", "colorText", 1, colorText);
 	auto vId = pBtn->GetIndices();
@@ -209,7 +209,15 @@ void mainLoop(void* pParam)
 	RCGLSetVertexParam("cube", "colorInput", 4, GL_FLOAT, GL_FALSE, 0, &vCubeColor[0]);
 	auto vCubeCenter = cube->GetCenters();
 	RCGLSetVertexParam("cube", "centerInput", 4, GL_FLOAT, GL_FALSE, 0, &vCubeCenter[0]);
-	RCGLSetUniformMatrix4fv("cube", "mvp", 1, GL_FALSE, &mvp[0][0]);
+	auto vCubeNormal = cube->GetNormals();
+	RCGLSetVertexParam("cube", "normalInput", 4, GL_FLOAT, GL_FALSE, 0, &vCubeNormal[0]);
+	RCGLSetUniformMatrix4fv("cube", "projection", 1, GL_FALSE, &projection[0][0]);
+	RCGLSetUniformMatrix4fv("cube", "view", 1, GL_FALSE, &view[0][0]);
+	RCGLSetUniformMatrix4fv("cube", "model", 1, GL_FALSE, &model[0][0]);
+	GLfloat pLightPos[] = { 4, 6, 4 };
+	RCGLSetUniform4fv("cube", "lightPos", 1, pLightPos);
+	RCGLSetUniform1f("cube", "ambientRatio", 0.35f);
+	RCGLSetUniform1f("cube", "specularRatio", 0.5f);
 	auto vCubeIndices = cube->GetIndices();
 	RCGLDrawElements(GL_TRIANGLES, vCubeIndices.size(), GL_UNSIGNED_INT, (void*)&vCubeIndices[0]);
 

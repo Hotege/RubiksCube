@@ -252,6 +252,68 @@ std::vector<v4> Cube::GetCenters()
 	return result;
 }
 
+std::vector<v4> Cube::GetNormals()
+{
+	std::vector<v4> result;
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, 1, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, 1, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+	result.insert(result.end(), 6, { 1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+	result.insert(result.end(), 6, { 0, 0, -1, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+	result.insert(result.end(), 6, { -1, 0, 0, 1 });
+	result.insert(result.end(), 6, { 0, -1, 0, 1 });
+	return result;
+}
+
 std::vector<unsigned int> Cube::GetIndices()
 {
 	std::vector<unsigned int> result;
