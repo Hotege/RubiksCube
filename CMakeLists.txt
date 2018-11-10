@@ -89,7 +89,7 @@ set_target_properties(Rubik_sCube PROPERTIES OUTPUT_NAME "Rubik's Cube(Bloated)"
 
 install(FILES working/RubiksCube.dlp DESTINATION ${PROJECT_BINARY_DIR}/bin)
 
-if (${CMAKE_BUILD_TYPE} MATCHES "Release")
+if (${CMAKE_BUILD_TYPE} MATCHES "Default")
     install(TARGETS Rubik_sCube DESTINATION "${INSTALL_DIR}/bin")
     install(FILES working/RubiksCube.dlp DESTINATION ${INSTALL_DIR}/bin)
 endif ()
